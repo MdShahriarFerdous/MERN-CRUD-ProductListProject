@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { object, number, string } from "yup";
 import { updateProduct } from "../backend-services/productServices";
@@ -9,12 +9,15 @@ import FullScreenLoader from "../components/navbar/FullScreenLoader";
 import "../components/create/form.css";
 
 const UpdatePage = () => {
+	const { id } = useParams();
+	// console.log(id);
+	// console.log(String(id));
 	const [isCreated, setIsCreated] = useState(false);
 	const navigate = useNavigate();
 
 	const location = useLocation();
 	// console.log(location);
-	const { _id, name, code, unitPrice, quantity, totalPrice, image } =
+	const { name, code, unitPrice, quantity, totalPrice, image } =
 		location.state;
 
 	const formik = useFormik({
@@ -42,7 +45,7 @@ const UpdatePage = () => {
 		onSubmit: async (values, { resetForm }) => {
 			setIsCreated(true);
 			try {
-				await updateProduct(_id, values);
+				await updateProduct(id, values);
 				// console.log(updatedProduct);
 				toast.success("Data Updated");
 

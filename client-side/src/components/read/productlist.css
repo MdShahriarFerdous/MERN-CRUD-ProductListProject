@@ -1,0 +1,4 @@
+.list-card {
+	overflow-y: auto;
+	height: 80vh !important;
+}
